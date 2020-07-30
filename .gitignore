@@ -1,0 +1,11 @@
+# build files
+*.pyc
+
+# virtual env
+bdays-venv/
+
+# sensitive files
+contacts.json
+
+# misc
+.vscode
