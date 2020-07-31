@@ -2,7 +2,7 @@
 *.pyc
 
 # virtual env
-bdays-venv/
+venv/
 
 # sensitive files
 contacts.json
