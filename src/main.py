@@ -39,7 +39,7 @@ def main(argc, argv):
         all_contacts = contact_manager.get_contacts(CONTACTS_FILENAME)
         have_bday_today = [contact for contact in all_contacts if has_bday_today(contact)]
 
-        print(have_bday_today)
+        send_mail(have_bday_today)
 
     else:
         print('Unknown command \'{}\''.format(command))
@@ -68,10 +68,20 @@ def has_bday_today(person: Person) -> bool:
 
 
 def send_mail(contacts: List[Person]):
+    # TODO: actually make it only send when there is someone that has a bday
     with smtplib.SMTP('localhost') as smtp:
-        smtp.sendmail('noreply@federlizer.com', 'federlizer@gmail.com', 'Some test string')
+        sender = 'bdays@federlizer.com'
+        recepient = 'federlizer@gmail.com'
 
-        # TODO: Finish me
+        if len(contacts) == 0:
+            body = 'Nobody has a bday, but this is just a test mail that you wanted to setup.. so you\'re getting it :)'
+        else:
+            body = "Some people have a birthday today! Here's the list:\n\n"
+            body += '\n'.join([c.__repr__() for c in contacts])
+            body += '\n\nHave a very nice day!'
+
+        smtp.sendmail(sender, recepient, body)
+
 
 if __name__ == '__main__':
     args = sys.argv[1:]
