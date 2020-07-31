@@ -1,5 +1,7 @@
 import json
 
+from person import Person
+
 def add_contact(person, filepath):
     """
     Adds a contact to the contacts file
@@ -40,4 +42,4 @@ def get_contacts(filepath):
     with open(filepath, 'r') as contacts_file:
         contacts = json.load(contacts_file)
 
-    return contacts
+    return [Person.from_dict(c) for c in contacts]
