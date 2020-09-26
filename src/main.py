@@ -68,14 +68,11 @@ def has_bday_today(person: Person) -> bool:
 
 
 def send_mail(contacts: List[Person]):
-    # TODO: actually make it only send when there is someone that has a bday
     with smtplib.SMTP('localhost') as smtp:
         sender = 'bdays@federlizer.com'
         recepient = 'federlizer@gmail.com'
 
-        if len(contacts) == 0:
-            body = 'Nobody has a bday, but this is just a test mail that you wanted to setup.. so you\'re getting it :)'
-        else:
+        if len(contacts) > 0:
             body = "Some people have a birthday today! Here's the list:\n\n"
             body += '\n'.join([c.__repr__() for c in contacts])
             body += '\n\nHave a very nice day!'
